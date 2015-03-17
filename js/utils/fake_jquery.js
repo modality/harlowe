@@ -1,3 +1,3 @@
-define([], funciton() {
+define([], function() {
   return window.jQuery;
 });
