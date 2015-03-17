@@ -5,7 +5,7 @@
 require.config({
 	paths: {
 		// External libraries
-		jquery:          '../node_modules/jquery/dist/jquery',
+		jquery:          'utils/fake_jquery',
 		"lz-string":     '../node_modules/lz-string/libs/lz-string-1.3.3',
 		almond:          '../node_modules/almond/almond',
 		"es6-shim":      '../node_modules/es6-shim/es6-shim',
