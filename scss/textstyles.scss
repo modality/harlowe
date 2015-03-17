@@ -1,0 +1,154 @@
+/*** Styling elements, for general use by Twine authors ***/
+
+h1 {
+	font-size: 3em;
+}
+h2 {
+	font-size: 2.25em;
+}
+h3 {
+	font-size: 1.75em;
+}
+h1, h2, h3, h4, h5, h6 {
+	line-height: 1em;
+	margin: 0.6em 0;
+}
+
+pre {
+	font-size:1rem;
+}
+
+small {
+    font-size: 70%;
+}
+
+big {
+    font-size: 120%;
+}
+
+mark {
+	color:rgba(0,0,0,0.6);
+	background-color: #ff9;
+}
+
+ins {
+	color:rgba(0,0,0,0.6);
+	background-color: hsla(45,100%,90%,0.5); /* Yellowed correction fluid */
+	border-radius:0.5em;
+	box-shadow: 0em 0em 0.2em hsl(45,100%,80%);
+	text-decoration:none;
+}
+
+del {
+	background-color: #000; /* Censored text */
+	text-decoration:none;
+}
+
+/* Who am I to tell authors not to use non-standard tags? */
+
+center {
+	text-align:center;
+	margin: 0 auto;
+	width: 60%;
+}
+
+blink {
+	text-decoration: none;
+	animation: fade-in-out 1s steps(1,end) infinite alternate;
+	-webkit-animation: fade-in-out 1s steps(1,end) infinite alternate;
+}
+
+/*** Secondary text styles, for general use by Twine authors ***/
+
+tw-align {
+	display:block;
+}
+
+tw-outline {
+	color: white; // Should be computed to equal text color
+	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+tw-shadow {
+	text-shadow: 0.08em 0.08em 0.08em #000; // Should be computed to equal text color
+}
+
+tw-emboss {
+	text-shadow: 0.08em 0.08em 0em #000;
+	color:white; // Should be computed to equal background color
+}
+
+tw-condense {
+	letter-spacing: -0.08em;
+}
+
+tw-expand {
+	letter-spacing: 0.1em;
+}
+
+tw-blur {
+	color:transparent;
+	text-shadow: 0em 0em 0.08em #000; // Should be computed to equal text color
+}
+
+tw-blurrier {
+	color:transparent;
+	text-shadow: 0em 0em 0.2em #000; // Should be computed to equal text color
+}
+
+tw-blurrier::selection {
+	background-color:transparent;
+	color:transparent;
+}
+
+tw-blurrier::-moz-selection {
+	background-color:transparent;
+	color:transparent;
+}
+
+tw-smear {
+	color:transparent;
+	text-shadow:
+		0em    0em 0.02em rgba(0,0,0,0.75),
+		-0.2em 0em 0.5em  rgba(0,0,0,0.5),
+		0.2em  0em 0.5em  rgba(0,0,0,0.5);
+}
+
+tw-mirror {
+	display:inline-block;
+	transform: scaleX(-1);
+	-webkit-transform: scaleX(-1);
+}
+
+tw-upside-down {
+	display:inline-block;
+	transform: scaleY(-1);
+	-webkit-transform: scaleY(-1);
+}
+
+/* Animated effects follow */
+
+tw-fade-in-out {
+	text-decoration: none;
+	animation: fade-in-out 2s ease-in-out infinite alternate;
+	-webkit-animation: fade-in-out 2s ease-in-out infinite alternate;
+}
+
+tw-rumble {
+	-webkit-animation: rumble linear 0.1s 0s infinite;
+	animation: rumble linear 0.1s 0s infinite;
+	display:inline-block;
+}
+
+tw-shudder {
+	-webkit-animation: shudder linear 0.1s 0s infinite;
+	animation: shudder linear 0.1s 0s infinite;
+	display:inline-block;
+}
+
+/* Insertion effects */
+
+tw-shudder-in {
+    animation: shudder-in 1s ease-out;
+    -webkit-animation: shudder-in 1s ease-out;
+}

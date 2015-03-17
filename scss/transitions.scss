@@ -1,0 +1,74 @@
+/* Transitions */
+@mixin animation($animations) {
+	-webkit-animation: $animations;
+            animation: $animations;
+}
+
+/* Invalid/instant transition */
+.transition-in {
+	@include animation(appear 0ms step-start);
+}
+.transition-out {
+	@include animation(appear 0ms step-end);
+}
+
+/* Dissolve, fade-in */
+[data-t8n^=fade-in] {
+	&.transition-in {
+		@include animation(appear 0.8s);
+		/*background-color: hsla(120,50%,50%,0.5);*/
+	}
+}
+[data-t8n^=dissolve] {
+	@extend [data-t8n^=fade-in];
+	&.transition-out {
+		@include animation(appear 0.8s reverse);
+	}
+}
+
+/* Shudder, shudder-in, shudder-out */
+[data-t8n^=shudder] {
+	@extend [data-t8n^=shudder-in];
+	@extend [data-t8n^=shudder-out];
+}
+[data-t8n^=shudder-in] {
+	&.transition-in {
+		display: inline-block;
+		@include animation(shudder-in 0.8s);
+	}
+}
+[data-t8n^=shudder-out] {
+	&.transition-out {
+		display: inline-block;
+		@include animation(shudder-out 0.8s);
+	}
+}
+
+/* Box-flash */
+[data-t8n^=boxflash] {
+	&.transition-in {
+		@include animation(shudder-out 0.8s);
+	}
+}
+
+/* Pulse */
+[data-t8n^=pulse] {
+	&.transition-in {
+		@include animation(pulse 0.8s);
+	}
+	&.transition-out {
+		@include animation(pulse 0.8s reverse);
+	}
+}
+
+/* Modifiers */
+[data-t8n$=fast] {
+	animation-duration: 0.4s;
+	-webkit-animation-duration: 0.4s;
+}
+
+/* Modifiers */
+[data-t8n$=slow] {
+	animation-duration: 1.2s;
+	-webkit-animation-duration: 1.2s;
+}

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Jasmine Spec Runner v2.2.1</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.2.1/jasmine.css">
+<link rel="stylesheet" href="../build/harlowe-css.css"/>
+<script src="../node_modules/requirejs/require.js"></script>
+<script>
+require.config({baseUrl: "../js/"});
+require(["markup/lexer","markup/patterns","markup/markup","harlowe"]);
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.2.1/jasmine.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.2.1/jasmine-html.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.2.1/boot.js"></script>
+<script role="script" type="text/twine-javascript">
+window.createPassage = function(text, name, tags) {
+	State.variables.Passages.set(name, new Map([
+		["prose", text],
+		["name", name],
+		["tags", tags],
+	]));
+};
+window.goToPassage = Engine.goToPassage;
+window.runPassage = function(text, name) {
+	name = name || "test";
+	createPassage(text, name);
+	Engine.goToPassage(name);
+	
+	return $('tw-passage > tw-transition-container');
+};
+window.expectMarkupToBecome = function(markup, html) {
+	expect(runPassage(markup).html() || '').toBe(html);
+};
+window.expectMarkupToPrint = function(markup, text) {
+	expect(runPassage(markup).text() || '').toBe(text);
+};
+window.expectMarkupToError = function(markup) {
+	expect(runPassage(markup).find('tw-error:not(.javascript)').length).toBe(1);
+};
+window.expectMarkupNotToError = window.expectMarkupToNotError = function(markup) {
+	expect(runPassage(markup).find('tw-error').length).toBe(0);
+};
+window.clearState = function() {
+	State.reset();
+	State.variables.Passages.clear();
+	State.variables.Saves.clear();
+};
+</script>
+<script>
+beforeEach(function f(done) {
+	if (window.$ && window.clearState) {
+		$('tw-story').empty();
+		clearState();
+		localStorage.clear();
+		done();
+		return;
+	}
+	setTimeout(f.bind(0, done), 1);
+});
+afterAll(function() {
+	$('tw-story').removeAttr('style');
+});
+</script>
+<body>
+<tw-story style='visibility:hidden'></tw-story>
+
+<!-- include spec files here... -->
+<script src="spec/basic_markup.js"></script>
+<script src="spec/html_in_markup.js"></script>
+<script src="spec/operators.js"></script>
+<script src="spec/identifiers.js"></script>
+<script src="spec/value_macros.js"></script>
+<script src="spec/command_macros.js"></script>
+<script src="spec/link_markup.js"></script>
+<script src="spec/property_indexing.js"></script>
+<script src="spec/style_changer_macros.js"></script>
+<script src="spec/save_macros.js"></script>
+<script src="spec/system_variables.js"></script>
+<script src="spec/setup_passages.js"></script>
+<script src="spec/enchantments.js"></script>
+<tw-storydata options="debug" startnode="1">
+<tw-passagedata pid="1" name="1">

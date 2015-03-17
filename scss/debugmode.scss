@@ -1,0 +1,225 @@
+
+/*** Debug mode ***/
+.debug-mode {
+	@mixin tiny-annotation() {
+		font-size: 0.8rem;
+		vertical-align: top;
+	}
+
+	tw-expression {
+		
+		&[type=hookref] {
+			background-color: hsla(220, 10%, 50%, 0.15);
+			
+			/* Show the IDs of hooks */
+			&::after {
+				@include tiny-annotation();
+				content: "?" attr(name)
+			}
+		}
+		&[type=variable] {
+			background-color: hsla(30, 10%, 50%, 0.15);
+			
+			/* Show the IDs of hooks */
+			&::after {
+				@include tiny-annotation();
+				content: "$" attr(name)
+			}
+		}
+		&[type=macro] {
+			display:inline-block;
+			
+			/* Colours for generic macros */
+			&:nth-of-type(4n+0)     { background-color: hsla(80, 20%,50%,0.15); }
+			&:nth-of-type(2n+1)     { background-color: hsla(120,20%,50%,0.15); }
+			&:nth-of-type(4n+2)     { background-color: hsla(160,20%,50%,0.15); }
+			
+			/* Colours for specific macros */
+			&[name="display"]       { background-color: hsla(200,100%,50%,0.1) !important; }
+			&[name="if"],
+			&[name="unless"],
+			&[name="elseif"],
+			&[name="else"]          {
+				/* (if:), (elseif:), (else:) and (unless:) have special hook colouring. */
+				&, & + tw-hook:not([name]) {
+					background-color: hsla(120,100%,50%,0.1) !important;
+				}
+			}
+			&.false                 {
+				background-color: hsla(0,  100%,50%,0.2) !important;
+				& + tw-hook:not([name]) {
+					display:none;
+				}
+			}
+			&[name="a"],
+			&[name="array"],
+			&[name="datamap"],
+			&[name="dataset"],
+			&[name="colour"],
+			&[name="color"],
+			&[name="num"],
+			&[name="number"],
+			&[name="text"],
+			&[name="print"]         { background-color: hsla(60, 100%,50%,0.2) !important; }
+			&[name="put"],
+			&[name="set"]           { background-color: hsla(30, 100%,50%,0.2) !important; }
+			&[name="script"]        { background-color: hsla(45, 100%,50%,0.2) !important; }
+			&[name="style"]         { background-color: hsla(180, 10%,75%,0.2) !important; }
+			&[name^="link"],
+			&[name^="click"],
+			&[name^="mouseover"],
+			&[name^="mouseout"]     { background-color: hsla(90,  75%,50%,0.2) !important; }
+			&[name^="replace"],
+			&[name^="prepend"],
+			&[name^="append"],
+			&[name^="remove"]       { background-color: hsla(20,  75%,50%,0.2) !important; }
+			&[name="live"]          { background-color: hsla(220, 75%,50%,0.2) !important; }
+			
+			/* Show the macro call */
+			&::before
+			{
+				content: attr(title);
+				padding: 0 0.5rem;
+				font-size: 1rem;
+				vertical-align: middle;
+				line-height: normal;
+				background-color:  inherit;
+				border: 1px solid rgba(255,255,255,0.5);
+			}
+		}
+	}
+
+	/* Colours for other things */
+	tw-hook {
+		background-color: hsla(220,100%,50%,0.1) !important;
+		
+		/*
+			Show the hook syntax. This should line up with what TwineMarkup expects.
+			
+			But, of course, anonymous hooks shouldn't be highlighted like this.
+		*/
+		&::before {
+			@include tiny-annotation();
+			content: "["
+		}
+		&::after {
+			@include tiny-annotation();
+			content: "]"
+		}
+		&[name] {
+			/* Show the IDs of named hooks */
+			&::after {
+				@include tiny-annotation();
+				content: "]<" attr(name) "|"
+			}
+		}
+	}
+	tw-pseudo-hook {
+		background-color: hsla(40,100%,50%,0.1) !important;
+	}
+	tw-collapsed {
+		&::before {
+			@include tiny-annotation();
+			content: "{"
+		}
+		&::after {
+			@include tiny-annotation();
+			content: "}"
+		}
+	}
+	tw-align {
+		&[style*="text-align: center"] {
+			background: linear-gradient(to right, hsla(14,100%,87%,0) 0%, hsla(14,100%,87%,0.25) 50%, hsla(14,100%,87%,0) 100%);
+		}
+		&[style*="text-align: left"] {
+			background: linear-gradient(to right, hsla(14,100%,87%,0.25) 0%, hsla(14,100%,87%,0) 100%);
+		}
+		&[style*="text-align: right"] {
+			background: linear-gradient(to right, hsla(14,100%,87%, 0) 0%, hsla(14,100%,87%,0.25) 100%);
+		}
+	}
+	p {
+		background-color: hsla(50,100%,50%,0.1);
+	}
+	
+	tw-enchantment {
+		animation: enchantment 0.5s infinite;
+		-webkit-animation: enchantment 0.5s infinite;
+		border: 1px solid;
+	}
+	
+	/* Show destinations of links */
+	tw-link::after,
+	tw-broken-link::after {
+		@include tiny-annotation();
+		content: attr(passage-name);
+	}
+	
+	tw-passage-setup {
+		background-color: hsla(30,60%,50%,0.1);
+		&::after {
+			@include tiny-annotation();
+			content: 'passage-setup';
+		}
+	}
+	tw-story-setup {
+		background-color: hsla(180,50%,50%,0.1);
+		&::after {
+			@include tiny-annotation();
+			content: 'story-setup';
+		}
+	}
+}
+
+@keyframes enchantment {
+	0%,to { border-color: hsl( 30,100%,70%) }
+	50%   { border-color: hsl(160,100%,70%) }
+}
+@-webkit-keyframes enchantment {
+	0%,to { border-color: hsl( 30,100%,70%); }
+	50%   { border-color: hsl(160,100%,70%); }
+}
+
+/* The debug button */
+
+tw-debugger {
+	position:fixed;
+	bottom:0;
+	right:0;
+	z-index: 999999;
+	min-width: 10em;
+	min-height: 1em;
+	padding: 1em;
+	font-size: 1.5em;
+	@media screen and (max-width: 1280px) {
+		font-size: 1.25em;
+	}
+	@media screen and (max-width: 960px) {
+		font-size: 1em;
+	}
+	@media screen and (max-width: 640px) {
+		font-size: 0.8em;
+	}
+	border: {
+		left: solid #000 2px;
+		top: solid #000 2px;
+		top-left-radius: 0.5em;
+	}
+	background: #fff;
+	transition: opacity 0.2s; -webkit-transition: opacity 0.2s;
+	opacity: 0.8;
+	&:hover {
+		opacity: 1;
+	}
+}
+
+.show-invisibles {
+	border-radius: 3px;
+	border: solid #999 1px;
+	background-color: #fff;
+	font-size: inherit;
+	.debug-mode & {
+		background-color: #eee;
+		box-shadow: inset #ddd 3px 5px 0.5em;
+	}
+}

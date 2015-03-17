@@ -1,0 +1,8 @@
+*.swp
+node_modules/*
+dist/*
+docs/*
+build/*
+*.bat
+\.DS_Store
+tests/*

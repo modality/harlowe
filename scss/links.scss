@@ -1,0 +1,45 @@
+tw-link, .link, tw-icon {
+	cursor: pointer;
+}
+
+tw-link, .enchantment-link {
+	color: #4169E1; // A striking blue
+	font-weight: bold;
+	text-decoration: none;
+	
+	// Quickly fade to a deep blue on mouseover
+	transition: color 0.2s ease-in-out;
+	&:hover {
+		color: DeepSkyBlue;
+	}
+	
+	&:active {
+		color: #DD4B39; // A cooked red
+	}
+}
+
+.visited {
+	color: #6941e1; // A run-of-the-mill purple
+	&:hover {
+		color: #E3E; // A fierce magenta
+	}
+}
+
+tw-broken-link {
+	color: #993333; // A clotted blood colour
+	border-bottom: 2px solid #993333;
+	cursor: not-allowed;
+}
+
+.enchantment-hover {
+	border-bottom: 1px dashed #666;
+}
+
+.enchantment-mouseout {
+	border: hsla(200,50%,50%,0.25) 1px solid;
+	&:hover {
+		background-color: hsla(200,50%,50%,0.25);
+		border: transparent 1px solid;
+		border-radius: 0.2em;
+	}
+}
