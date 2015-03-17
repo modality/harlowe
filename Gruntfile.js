@@ -99,6 +99,7 @@ module.exports = function (grunt) {
 			},
 			compile: {
 				options: {
+				  optimize: 'none',
 					baseUrl: 'js',
 					mainConfigFile: 'js/harlowe.js',
 					name: 'harlowe',
@@ -141,12 +142,7 @@ module.exports = function (grunt) {
 				},{
 					from: '"lexer":""',
 					to: function() { return '"lexer":' + JSON.stringify(grunt.file.read(destMarkupJS)) },
-				}].concat(scriptStyleReplacements.map(function(e) {
-					return {
-						from: e.from,
-						to: function() { return JSON.stringify(e.to()).slice(1, -1); }
-					};
-				}))
+				}]
 			},
 		},
 
@@ -189,6 +185,11 @@ module.exports = function (grunt) {
 				return a.replace(e.from, e.to());
 			}, grunt.file.read(sourceHTML)));
 	});
+
+	grunt.registerTask('copy_compiled_files', "Copy the compiled files over (don't inline them)", function() {
+		grunt.file.copy(destCSS, 'dist/style.css');
+		grunt.file.copy(destJS, 'dist/output.js')
+	});
 	
 	/*
 		Load the auxiliary tasks.
@@ -212,5 +213,5 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-text-replace');
 
 	grunt.registerTask('default', [ 'clean', 'jshint:harlowe', 'jshint:tests', 'sass', 'cssmin', 'requirejs', ]);
-	grunt.registerTask('runtime', [ 'clean', 'sass', 'cssmin', 'requirejs', 'replace:runtime', 'examplefile', ]);
+	grunt.registerTask('runtime', [ 'clean', 'sass', 'cssmin', 'requirejs', 'replace:runtime', 'copy_compiled_files', 'examplefile', ]);
 };
