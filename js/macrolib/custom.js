@@ -1,8 +1,7 @@
 define(['macros', 'utils'], function(Macros, Utils) {
   "use strict";
-  
-	var
-		Any = Macros.TypeSignature.Any;
+
+  var Any = Macros.TypeSignature.Any;
 
   Macros.add
     ("shareButtons",
@@ -33,6 +32,15 @@ define(['macros', 'utils'], function(Macros, Utils) {
         };
       },
       [Any]
+    )
+
+    ("googleTrack",
+      function googleTrack(_, ev, val) {
+        if(BF_GAME) {
+          BF_GAME.Instance.googleTrack(ev, val);
+        }
+      },
+      [Any, Any]
     )
     ;
 });
