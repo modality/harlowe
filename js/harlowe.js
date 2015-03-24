@@ -127,6 +127,8 @@ require(['jquery', 'renderer', 'state', 'engine', 'utils', 'utils/selectors', 'm
 			$(document.head).append('<style data-title="Story stylesheet ' + (i + 1) + '">' + $(this).html());
 		});
 		
+		/* DO NOT DO! */
+		/*
 		// Load the hash if it's present
 		if (window.location.hash && !window.location.hash.includes("stories")) {
 			if (State.load(window.location.hash)) {
@@ -134,6 +136,7 @@ require(['jquery', 'renderer', 'state', 'engine', 'utils', 'utils/selectors', 'm
 				return;
 			}
 		}
+		*/
 		// Show first passage!
 		Engine.goToPassage(startPassage);
 	});

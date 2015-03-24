@@ -6,6 +6,7 @@ define([
 	'macrolib/stylechangers',
 	'macrolib/enchantments',
 	'macrolib/links',
+	'macrolib/custom'
 ],
 function(Utils) {
 	"use strict";
