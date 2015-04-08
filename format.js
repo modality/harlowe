@@ -1,1 +1,1 @@
-window.storyFormat({"name":"Harlowe","version":"1.1.0","author":"Leon Arnott","description":"The default story format for Twine 2.","image":"icon.svg","url":"http://twinery.org/","proofing":false,"source":"","lexer":""});
+window.storyFormat({"name":"BuzzFeed","version":"0.0.1","author":"Michael Hansen & Sam Thurman","description":"BuzzFeed's story format based on Harlowe.","image":"icon.svg","url":"http://twinery.org/","proofing":false,"source":"","lexer":""});

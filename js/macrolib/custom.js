@@ -1,22 +1,37 @@
 define(['macros', 'utils'], function(Macros, Utils) {
   "use strict";
 
-  var Any = Macros.TypeSignature.Any;
+  var Any = Macros.TypeSignature.Any,
+      optional = Macros.TypeSignature.optional;
 
   Macros.add
     ("shareButtons",
       function shareButtons(_, shareText, imageName) {
-        if(BF_GAME) {
-          BF_GAME.Instance.shareButtons(shareText, imageName);
+        if(window.BF_GAME) {
+          window.BF_GAME.Instance.shareButtons(shareText, imageName);
+        } else {
+          return {
+            TwineScript_ObjectName:
+              "a (shareButtons) command",
+
+            TwineScript_TypeName:
+              "a (shareButtons) command",
+
+            TwineScript_Print: function() {
+              return '<tw-expression type="macro" name="link-goto"><tw-link tabindex="0" class="visited" passage-name="Start">Share Buttons Go Here</tw-link></tw-expression>';
+            },
+          }
         }
       },
-      [Any, Any]
+      [optional(Any), optional(Any)]
     )
 
     ("staticImage",
       function staticImage(_, url) {
-        if(BF_GAME) {
-          url = BF_GAME.Instance.staticImage(url);
+        if(window.BF_GAME) {
+          url = window.BF_GAME.Instance.staticImage(url);
+        } else {
+          url = "images_go_here/" + url;
         }
 
         return {
@@ -36,8 +51,8 @@ define(['macros', 'utils'], function(Macros, Utils) {
 
     ("googleTrack",
       function googleTrack(_, ev, val) {
-        if(BF_GAME) {
-          BF_GAME.Instance.googleTrack(ev, val);
+        if(window.BF_GAME) {
+          window.BF_GAME.Instance.googleTrack(ev, val);
         }
       },
       [Any, Any]

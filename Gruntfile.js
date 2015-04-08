@@ -20,7 +20,7 @@ module.exports = function (grunt) {
 		}, {
 			from: '{{HARLOWE}}',
 			to: function () {
-				return '<script title="Twine engine code" data-main="harlowe">' + grunt.file.read(destJS) + '</script>\n';
+				return '<script title="Twine engine code" data-main="buzzfeed">' + grunt.file.read(destJS) + '</script>\n';
 			}
 		}];
 	
@@ -99,7 +99,6 @@ module.exports = function (grunt) {
 			},
 			compile: {
 				options: {
-				  optimize: 'none',
 					baseUrl: 'js',
 					mainConfigFile: 'js/harlowe.js',
 					name: 'harlowe',
@@ -142,7 +141,12 @@ module.exports = function (grunt) {
 				},{
 					from: '"lexer":""',
 					to: function() { return '"lexer":' + JSON.stringify(grunt.file.read(destMarkupJS)) },
-				}]
+				}].concat(scriptStyleReplacements.map(function(e) {
+					return {
+						from: e.from,
+						to: function() { return JSON.stringify(e.to()).slice(1, -1); }
+					};
+				}))
 			},
 		},
 
