@@ -26,6 +26,31 @@ define(['macros', 'utils'], function(Macros, Utils) {
       [optional(Any), optional(Any)]
     )
 
+    ("theEnd",
+      function theEnd(_, shareText, imageName) {
+        var retval = {
+          TwineScript_ObjectName:
+            "a (theEnd) command",
+
+          TwineScript_TypeName:
+            "a (theEnd) command",
+
+          TwineScript_Print: function() {
+            return '<tw-expression type="macro" name="link-goto"><tw-link tabindex="0" class="visited" passage-name="Start">The End Goes Here</tw-link></tw-expression>';
+          }
+        };
+
+        if(window.BF_GAME) {
+          retval["TwineScript_Print"] = function() {
+            return window.BF_GAME.Instance.theEnd(shareText, imageName);
+          };
+        }
+
+        return retval;
+      },
+      [optional(Any), optional(Any)]
+    )
+
     ("staticImage",
       function staticImage(_, url) {
         if(window.BF_GAME) {
