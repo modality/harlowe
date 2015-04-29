@@ -1,5 +1,5 @@
-define(['jquery', 'utils', 'utils/selectors', 'state', 'section'],
-function ($, Utils, Selectors, State, Section) {
+define(['jquery', 'utils', 'utils/selectors', 'state', 'section', 'utils/events'],
+function ($, Utils, Selectors, State, Section, Events) {
 	"use strict";
 	
 	/**
@@ -96,6 +96,8 @@ function ($, Utils, Selectors, State, Section) {
 		if (!passageData || !(passageData instanceof Map) || !passageData.has('prose')) {
 			Utils.impossible("Engine.showPassage", "There's no passage with the name \""+name+"\"!");
 		}
+
+		$(Selectors.story).trigger(Events.beforeShowPassage, { name: name });
 		
 		/*
 			Because rendering a passage is a somewhat intensive DOM manipulation,
@@ -182,6 +184,8 @@ function ($, Utils, Selectors, State, Section) {
 			0,
 			stretch ? newPassage.offset().top - ($(window).height() * 0.05) : story.offset().top
 		);
+
+		$(Selectors.story).trigger(Events.afterShowPassage, { name: name });
 	}
 	
 	var Engine = {
