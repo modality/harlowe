@@ -52,14 +52,8 @@ define(['macros', 'utils'], function(Macros, Utils) {
     )
 
     ("staticImage",
-      function staticImage(_, url) {
-        if(window.BF_GAME) {
-          url = window.BF_GAME.Instance.staticImage(url);
-        } else {
-          url = "images_go_here/" + url;
-        }
-
-        return {
+      function staticImage(_, url, creditText, creditUrl) {
+        var retval = {
           TwineScript_ObjectName:
             "a (staticImage: " + Utils.toJSLiteral(url) + ") command",
 
@@ -67,11 +61,19 @@ define(['macros', 'utils'], function(Macros, Utils) {
             "a (staticImage:) command",
 
           TwineScript_Print: function() {
-            return '<img src="'+url+'" />';
-          },
+            return '<img src="images_go_here/'+url+'" />';
+          }
         };
+
+        if(window.BF_GAME) {
+          retval["TwineScript_Print"] = function() {
+            return window.BF_GAME.Instance.staticImage(url, creditText, creditUrl);
+          }
+        }
+
+        return retval;
       },
-      [Any]
+      [Any, optional(String), optional(String)]
     )
 
     ("googleTrack",

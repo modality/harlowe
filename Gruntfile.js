@@ -99,6 +99,7 @@ module.exports = function (grunt) {
       },
       compile: {
         options: {
+          //optimize: 'none',
           baseUrl: 'js',
           mainConfigFile: 'js/harlowe.js',
           name: 'harlowe',
